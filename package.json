@@ -1,0 +1,25 @@
+{
+  "name": "codility",
+  "version": "1.0.0",
+  "description": "Assignments from codility",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dusantrtica/codility.git"
+  },
+  "author": "Dusan Trtica",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dusantrtica/codility/issues"
+  },
+  "homepage": "https://github.com/dusantrtica/codility#readme",
+  "devDependencies": {
+    "jest": "^24.8.0"
+  },
+  "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+  }
+}
