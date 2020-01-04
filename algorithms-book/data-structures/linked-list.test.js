@@ -1,4 +1,4 @@
-import { Node, insertLast, insertFirst, insertAt } from './linked-list';
+import { Node, insertLast, insertFirst, insertAt, deleteHead, deleteTail } from './linked-list';
 const convertToArray = (head) => {
     const values = [];
     while (head) {
@@ -73,9 +73,8 @@ describe('linked-list', () => {
         });
 
         it('should insert one before last', () => {
-            debugger;
             insertAt(head, 3, 101);
             expect(convertToArray(head)).toEqual([10, 11, 12, 101, 13]);
-        })
+        });
     });
 })
