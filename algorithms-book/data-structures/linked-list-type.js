@@ -34,6 +34,8 @@ LinkedList.prototype.insertLast = function (value) {
     }
 }
 
+LinkedList.prototype.insert = LinkedList.prototype.insertLast;
+
 // [1,9,2,3]
 LinkedList.prototype.insertAt = function (value, pos) {
     if (pos === 0) {

@@ -5,6 +5,7 @@ describe('LinkedList', () => {
         it('should insert one element on the beginning', () => {
             const list = new LinkedList();
             list.insertFirst(1);
+            expect(list.head).toEqual({ next: null, value: 1 })
             expect(list.toArray()).toEqual([1]);
         });
 
@@ -12,6 +13,7 @@ describe('LinkedList', () => {
             const list = new LinkedList();
             list.insertFirst(1);
             list.insertFirst(2);
+            expect(list.head).toEqual({ value: 2, next: { value: 1, next: null } })
             expect(list.toArray()).toEqual([2, 1])
         });
     });
@@ -20,6 +22,7 @@ describe('LinkedList', () => {
         it('should add one elemeent list', () => {
             const list = new LinkedList();
             list.insertLast(10);
+            expect(list.head).toEqual({ value: 10, next: null });
             expect(list.toArray()).toEqual([10]);
         });
 
@@ -27,6 +30,7 @@ describe('LinkedList', () => {
             const list = new LinkedList();
             list.insertLast(10);
             list.insertLast(11);
+            expect(list.head).toEqual({ value: 10, next: { value: 11, next: null } });
             expect(list.toArray()).toEqual([10, 11]);
         })
     });
@@ -34,14 +38,17 @@ describe('LinkedList', () => {
     describe('LinkedList constructor', () => {
         it('should create empty list', () => {
             const list = new LinkedList([]);
+            expect(list.head).toEqual(null);
             expect(list.toArray()).toEqual([]);
         });
         it('should create one element array', () => {
             const list = new LinkedList([1]);
+            expect(list.head).toEqual({ value: 1, next: null });
             expect(list.toArray()).toEqual([1]);
         });
         it('should create 3 elements list', () => {
             const list = new LinkedList([1, 2, 3]);
+            expect(list.head).toEqual({ value: 1, next: { value: 2, next: { value: 3, next: null } } })
             expect(list.toArray()).toEqual([1, 2, 3])
         })
     });
@@ -50,24 +57,28 @@ describe('LinkedList', () => {
         it('should insertAt to empty list, first element, ', () => {
             const list = new LinkedList();
             list.insertAt(1, 0);
+            expect(list.head).toEqual({ next: null, value: 1 });
             expect(list.toArray()).toEqual([1]);
         });
 
         it('should insertAt to not empty list first element', () => {
             const list = new LinkedList([1]);
             list.insertAt(2, 0);
+            expect(list.head).toEqual({ value: 2, next: { value: 1, next: null } });
             expect(list.toArray()).toEqual([2, 1]);
         });
 
         it('should insert last element to list', () => {
             const list = new LinkedList([1]);
             list.insertAt(2, 1);
+            expect(list.head).toEqual({ value: 1, next: { value: 2, next: null } });
             expect(list.toArray()).toEqual([1, 2]);
         });
 
         it('should insert element in the middle', () => {
             const list = new LinkedList([1, 2, 3]);
             list.insertAt(101, 1);
+            expect(list.head).toEqual({ value: 1, next: { value: 101, next: { value: 2, next: { value: 3, next: null } } } });
             expect(list.toArray()).toEqual([1, 101, 2, 3]);
         });
     });
@@ -85,11 +96,13 @@ describe('LinkedList', () => {
         it('should remove latest elem of one elemlist', () => {
             const list = new LinkedList([1]);
             list.removeLast();
+            expect(list.head).toEqual(null);
             expect(list.toArray()).toEqual([]);
         })
         it('should remove latest element of a list', () => {
             const list = new LinkedList([1, 2, 3]);
             list.removeLast();
+            expect(list.head).toEqual({ value: 1, next: { value: 2, next: null } });
             expect(list.toArray()).toEqual([1, 2]);
         })
     });
@@ -120,16 +133,19 @@ describe('LinkedList', () => {
         })
         it('should remove elem on the 0th place, ', () => {
             list.removeAt(0);
+            expect(list.head).toEqual({ value: 2, next: { value: 3, next: null } });
             expect(list.toArray()).toEqual([2, 3]);
         });
 
         it('should remove elem on the 1st place (middle)', () => {
             list.removeAt(1);
+            expect(list.head).toEqual({ value: 1, next: { next: null, value: 3 } });
             expect(list.toArray()).toEqual([1, 3]);
         });
 
         it('should remove elem on the last place', () => {
             list.removeAt(2);
+            expect(list.head).toEqual({ value: 1, next: { next: null, value: 2 } });
             expect(list.toArray()).toEqual([1, 2])
         })
     })
