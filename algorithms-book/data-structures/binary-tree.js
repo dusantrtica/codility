@@ -31,8 +31,22 @@ BinaryTreeNode.prototype.prefix = function (result) {
     }
 }
 
-const BinaryTree = function () {
+BinaryTreeNode.prototype.count = function () {
+    const leftCount = this.left !== null ? this.left.count() : 0;
+    const rightCount = this.right !== null ? this.right.count() : 0;
+    return 1 + leftCount + rightCount;
+}
+
+BinaryTreeNode.prototype.height = function () {
+    const leftHeight = this.left !== null ? this.left.height() : 0;
+    const rightHeight = this.right !== null ? this.right.height() : 0;
+
+    return 1 + Math.max(leftHeight, rightHeight);
+}
+
+const BinaryTree = function (initialValues = []) {
     this.root = null;
+    initialValues.forEach(value => { this.insert(value) })
 }
 
 BinaryTree.prototype.insert = function (value) {
@@ -50,6 +64,21 @@ BinaryTree.prototype.prefix = function () {
     }
 
     return result;
+}
+
+BinaryTree.prototype.count = function () {
+    if (this.root) {
+        return this.root.count();
+    }
+    return 0;
+}
+
+BinaryTree.prototype.height = function () {
+    if (this.root) {
+        return this.root.height();
+    }
+
+    return 0;
 }
 
 export default BinaryTree;
