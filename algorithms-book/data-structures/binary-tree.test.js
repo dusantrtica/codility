@@ -1,6 +1,76 @@
 import BinaryTree, { BinaryTreeNode } from "./binary-tree";
 
 describe('BinaryTree', () => {
+    describe('maxOnLevel', () => {
+        it('should return null for empty tree', () => {
+            const tree = new BinaryTree();
+            expect(tree.maxOnLevel(0)).toBe(null);
+            expect(tree.maxOnLevel(1)).toBe(null);
+        });
+        it('should return max on non empty tree', () => {
+            const tree = new BinaryTree([2, 1, 3]);
+            expect(tree.maxOnLevel(0)).toBe(2);
+            expect(tree.maxOnLevel(1)).toBe(3);
+            expect(tree.maxOnLevel(3)).toBe(null);
+        });
+
+        it('should return max on non balanced tree', () => {
+            const tree = new BinaryTree([1, 2, 3, 4, 5]);
+            expect(tree.maxOnLevel(0)).toBe(1);
+            expect(tree.maxOnLevel(2)).toBe(3);
+            expect(tree.maxOnLevel(4)).toBe(5);
+            expect(tree.maxOnLevel(10)).toBe(null);
+        });
+    });
+
+    describe('sumOnLevel', () => {
+        it('should return null for empty tree', () => {
+            const tree = new BinaryTree();
+            expect(tree.sumOnLevel(0)).toBe(null);
+            expect(tree.sumOnLevel(10)).toBe(null);
+        });
+
+        it('should return sum for non empty tree', () => {
+            const tree = new BinaryTree([5, 3, 8, 2, 4, 7, 9]);
+            expect(tree.sumOnLevel(0)).toBe(5);
+            expect(tree.sumOnLevel(1)).toBe(11);
+            expect(tree.sumOnLevel(2)).toBe(22);
+            expect(tree.sumOnLevel(10)).toBe(null);
+        });
+
+        it('should return sum for non balanced tree', () => {
+            const tree = new BinaryTree([1, 2, 3, 4, 5]);
+            expect(tree.sumOnLevel(0)).toBe(1);
+            expect(tree.sumOnLevel(1)).toBe(2);
+            expect(tree.sumOnLevel(2)).toBe(3);
+            expect(tree.sumOnLevel(3)).toBe(4);
+            expect(tree.sumOnLevel(4)).toBe(5);
+            expect(tree.sumOnLevel(10)).toBe(null);
+        });
+    });
+    describe('level', () => {
+        it('should return 0 for empty tree and level 0', () => {
+            const tree = new BinaryTree();
+            expect(tree.level(0)).toEqual([]);
+            expect(tree.level(1)).toEqual([]);
+        });
+
+        it('should return nodes on 1st level', () => {
+            const tree = new BinaryTree([2, 1, 3]);
+            expect(tree.level(1)).toEqual([1, 3]);
+            expect(tree.level(0)).toEqual([2]);
+            expect(tree.level(2)).toEqual([]);
+        });
+
+        it('should reutrn nodes on few levels in unbalanced tree', () => {
+            const tree = new BinaryTree([1, 2, 3, 4]);
+            expect(tree.level(0)).toEqual([1]);
+            expect(tree.level(1)).toEqual([2]);
+            expect(tree.level(2)).toEqual([3]);
+            expect(tree.level(3)).toEqual([4]);
+        })
+    });
+
     describe('height', () => {
         it('should return 0 for empty tree', () => {
             const tree = new BinaryTree();
