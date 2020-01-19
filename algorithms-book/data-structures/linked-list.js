@@ -42,6 +42,38 @@ export const deleteTail = (head) => {
 
 
 }
-export const deleteHead = (head) => { }
 
-export const deleteAt = (head, pos) => { }
+export const addTwoNumbers = function (l1, l2) {
+    var carryDigit = 0;
+    var head = null;
+    var currNode = null;
+
+    while (l1 || l2) {
+        var tempSum = 0;
+        var val = 0;
+        tempSum = (l1 ? l1.value : 0) + (l2 ? l2.value : 0) + carryDigit;
+        if (tempSum >= 10) {
+            val = tempSum % 10;
+            carryDigit = 1;
+        } else {
+            val = tempSum;
+            carryDigit = 0;
+        }
+        if (!head) {
+            head = Node(val);
+            currNode = head;
+        } else {
+            const tmpNode = Node(val);
+            currNode.next = tmpNode;
+            currNode = tmpNode;
+        }
+        if (l1) { l1 = l1.next; }
+        if (l2) { l2 = l2.next; }
+    }
+    if (carryDigit) {
+        const tmpNode = Node(carryDigit);
+        currNode.next = tmpNode;
+        currNode = tmpNode;
+    }
+    return head;
+};

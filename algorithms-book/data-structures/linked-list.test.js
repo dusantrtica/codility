@@ -1,4 +1,5 @@
-import { Node, insertLast, insertFirst, insertAt, deleteHead, deleteTail } from './linked-list';
+import { Node, insertLast, insertFirst, insertAt, deleteHead, deleteTail, addTwoNumbers } from './linked-list';
+import { listFromArray } from './linked-list-assignments';
 const convertToArray = (head) => {
     const values = [];
     while (head) {
@@ -77,4 +78,41 @@ describe('linked-list', () => {
             expect(convertToArray(head)).toEqual([10, 11, 12, 101, 13]);
         });
     });
+
+    describe('addTwoNumbers', () => {
+        it('case 1, sum', () => {
+            const l1 = listFromArray([1]);
+            const l2 = listFromArray([2]);
+            const l3 = addTwoNumbers(l1, l2);
+            expect(l3).toEqual(listFromArray([3]));
+        });
+
+        it('case 2, sum 2 numbers with carry digit', () => {
+            const l1 = listFromArray([6]);
+            const l2 = listFromArray([7]);
+            const l3 = addTwoNumbers(l1, l2);
+            expect(l3).toEqual(listFromArray([3, 1]));
+        });
+
+        it('case 3, sum 2 numbers that are not equal in length', () => {
+            const l1 = listFromArray([2]);
+            const l2 = listFromArray([2, 1]);
+            const l3 = addTwoNumbers(l1, l2);
+            expect(l3).toEqual(listFromArray([4, 1]));
+        });
+
+        it('case 4, sum 2 numbers of different length with carry digit ', () => {
+            const l1 = listFromArray([6]);
+            const l2 = listFromArray([7, 1]);
+            const l3 = addTwoNumbers(l1, l2);
+            expect(l3).toEqual(listFromArray([3, 2]));
+        });
+
+        it('case 5, from the test assignment', () => {
+            const l1 = listFromArray([2, 4, 3]);
+            const l2 = listFromArray([5, 6, 4]);
+            const l3 = addTwoNumbers(l1, l2);
+            expect(l3).toEqual(listFromArray([7, 0, 8]));
+        })
+    })
 })
