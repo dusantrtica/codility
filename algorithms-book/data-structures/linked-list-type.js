@@ -117,9 +117,44 @@ LinkedList.prototype.toArray = function () {
     return values;
 }
 
-Node.prototype.recRemoveFirst = function (e) {
-
+export const mergeSortedLists = (l1, l2) => {
 }
 
+export const mergeSortedArrays = (a1, a2) => {
+    const arr = [];
+    const n1 = a1.length;
+    const n2 = a2.length;
+
+    let i = 0;
+    let j = 0;
+
+    while (i < n1 && j < n2) {
+        if (a1[i] < a2[j]) {
+            arr.push(a1[i]);
+            i++;
+            continue;
+        } else {
+            arr.push(a2[j]);
+            j++;
+            continue;
+        }
+    }
+
+    if (j < n2) {
+        while (j < n2) {
+            arr.push(a2[j]);
+            j++;
+        }
+    }
+
+    if (i < n1) {
+        while (i < n1) {
+            arr.push(a1[i]);
+            i++;
+        }
+    }
+
+    return arr;
+}
 
 export default LinkedList;

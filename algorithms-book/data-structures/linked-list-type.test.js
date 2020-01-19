@@ -1,4 +1,4 @@
-import LinkedList from './linked-list-type';
+import LinkedList, { mergeSortedArrays } from './linked-list-type';
 
 describe('LinkedList', () => {
     describe('insertFirst', () => {
@@ -177,6 +177,53 @@ describe('LinkedList', () => {
             const list = new LinkedList([1, 2, 3]);
             list.recRemoveAll(5);
             expect(list).toEqual(list);
+        })
+    });
+
+    describe('mergeSortedArrays', () => {
+        it('case 1', () => {
+            expect(mergeSortedArrays([1], [])).toEqual([1])
+            expect(mergeSortedArrays([], [1])).toEqual([1])
+        });
+        it('case 2', () => {
+            expect(mergeSortedArrays([1], [1])).toEqual([1, 1]);
+        });
+        it('case 3', () => {
+            expect(mergeSortedArrays([1], [2])).toEqual([1, 2]);
+            expect(mergeSortedArrays([2], [1])).toEqual([1, 2]);
+        });
+        it('case 4 ', () => {
+            expect(mergeSortedArrays([1, 3], [2, 4])).toEqual([1, 2, 3, 4]);
+            expect(mergeSortedArrays([2, 4], [1, 3])).toEqual([1, 2, 3, 4]);
+        })
+    })
+
+    describe.skip('mergeSortedLists', () => {
+        it('should merge list with empty list', () => {
+            const l1 = new LinkedList([1, 2]);
+            const l2 = new LinkedList([]);
+            const l3 = mergeSortedLists(l1, l2);
+            expect(l1.head).toEqual({ value: 1, next: { value: 2, next: null } });
+        });
+
+        it('case 2', () => {
+            const l1 = new LinkedList([1]);
+            const l2 = new LinkedList([1]);
+            const l3 = mergeSortedLists(l1, l2);
+            expect(l1.head).toEqual({ value: 1, next: { value: 1, next: null } });
+        });
+
+        it('case 3 ', () => {
+            const l1 = new LinkedList([1]);
+            const l2 = new LinkedList([2]);
+            expect(l1.head).toEqual({ value: 1, next: { value: 2, next: null } });
+        });
+
+        it('case 4', () => {
+            const l1 = new LinkedList([1, 4, 6]);
+            const l2 = new LinkedList([2, 5, 7]);
+            const l3 = mergeSortedLists(l1, l2);
+            expect(l1.toArray()).toEqual([1, 2, 4, 5, 6, 7]);
         })
     })
 })
