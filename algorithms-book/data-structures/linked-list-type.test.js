@@ -195,6 +195,10 @@ describe('LinkedList', () => {
         it('case 4 ', () => {
             expect(mergeSortedArrays([1, 3], [2, 4])).toEqual([1, 2, 3, 4]);
             expect(mergeSortedArrays([2, 4], [1, 3])).toEqual([1, 2, 3, 4]);
+        });
+        it('case 5', () => {
+            expect(mergeSortedArrays([1, 2, 3], [4, 5])).toEqual([1, 2, 3, 4, 5])
+            expect(mergeSortedArrays([4, 5], [1, 2, 3])).toEqual([1, 2, 3, 4, 5])
         })
     })
 

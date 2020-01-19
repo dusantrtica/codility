@@ -117,9 +117,6 @@ LinkedList.prototype.toArray = function () {
     return values;
 }
 
-export const mergeSortedLists = (l1, l2) => {
-}
-
 export const mergeSortedArrays = (a1, a2) => {
     const arr = [];
     const n1 = a1.length;
