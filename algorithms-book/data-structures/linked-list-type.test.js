@@ -148,5 +148,35 @@ describe('LinkedList', () => {
             expect(list.head).toEqual({ value: 1, next: { next: null, value: 2 } });
             expect(list.toArray()).toEqual([1, 2])
         })
+    });
+
+    describe.skip('recRemoveAll', () => {
+        it('should remove the only element in the list', () => {
+            const list = new LinkedList([1]);
+            list.recRemoveAll(1)
+            expect(list.head).toEqual(null);
+        });
+
+        it('should remove second element in 2 elemements list', () => {
+            const list = new LinkedList([1, 2]);
+            list.recRemoveAll(2);
+            expect(list.head).toEqual({ value: 1, next: null });
+        });
+        it('should remove first element in 2 elements list', () => {
+            const list = new LinkedList([1, 2]);
+
+            list.recRemoveAll(1);
+            expect(list.head).toEqual({ value: 2, next: null });
+        });
+        it('should remove second element in 3 elements list', () => {
+            const list = new LinkedList([1, 2, 3]);
+            list.recRemoveAll(2);
+            expect(list.head).toEqual({ value: 1, next: { value: 3, next: null } });
+        });
+        it('should leave list intact if the element is not found', () => {
+            const list = new LinkedList([1, 2, 3]);
+            list.recRemoveAll(5);
+            expect(list).toEqual(list);
+        })
     })
 })

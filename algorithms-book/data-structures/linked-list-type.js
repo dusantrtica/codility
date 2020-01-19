@@ -1,7 +1,7 @@
-const Node = (value) => ({
-    value,
-    next: null
-});
+const Node = function (value) {
+    this.value = value;
+    this.next = null;
+};
 
 const LinkedList = function (initialArray = []) {
     this.head = null;
@@ -12,16 +12,16 @@ const LinkedList = function (initialArray = []) {
 
 LinkedList.prototype.insertFirst = function (value) {
     if (!this.head) {
-        this.head = Node(value);
+        this.head = new Node(value);
     } else {
-        const newNode = Node(value);
+        const newNode = new Node(value);
         newNode.next = this.head;
         this.head = newNode;
     }
 }
 
 LinkedList.prototype.insertLast = function (value) {
-    const newNode = Node(value);
+    const newNode = new Node(value);
     if (!this.head) {
         this.head = newNode;
     } else {
@@ -41,7 +41,7 @@ LinkedList.prototype.insertAt = function (value, pos) {
     if (pos === 0) {
         this.insertFirst(value);
     } else {
-        const newNode = Node(value);
+        const newNode = new Node(value);
         let currNode = this.head;
         let counter = 0;
         while (currNode && counter < pos - 1) {
@@ -116,5 +116,10 @@ LinkedList.prototype.toArray = function () {
 
     return values;
 }
+
+Node.prototype.recRemoveFirst = function (e) {
+
+}
+
 
 export default LinkedList;

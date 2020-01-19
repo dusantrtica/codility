@@ -57,3 +57,41 @@ export const recMaxElem = (node) => {
 
     return Math.max(value, restMax);
 }
+
+export const recReplaceAll = (node, e1, e2) => {
+    if (!node) {
+        return;
+    }
+
+    if (node.value === e1) {
+        node.value = e2;
+    }
+
+    recReplaceAll(node.next, e1, e2);
+}
+
+export const recReplaceFirst = (node, e1, e2) => {
+    if (!node) {
+        return;
+    }
+
+    if (node.value === e1) {
+        node.value = e2;
+        return;
+    } else {
+        recReplaceFirst(node.next, e1, e2);
+    }
+}
+
+export const recRemoveAll = (listWrapper, e) => {
+    if (listWrapper.list) {
+        if (listWrapper.list.value === e) {
+            listWrapper.list = listWrapper.list.next;
+            const newWrapper = { list: listWrapper.list };
+            recRemoveAll(newWrapper, e);
+        } else {
+            const newWrapper = { list: listWrapper.list.next };
+            recRemoveAll(newWrapper, e);
+        }
+    }
+}
