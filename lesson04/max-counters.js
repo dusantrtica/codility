@@ -1,18 +1,34 @@
 const maxCounters = (N, A) => {
-    const result = {};
+    const result = [];
+    var maxCounter = 0;
+    var lastResetValue = 0;
+    for(var i = 0; i < N; i++) {
+        result[i] = 0;
+    }
     const n = A.length;
     for (var i = 0; i < n; i++) {
         const curr = A[i];
-        if (1 <= curr && curr <= N) {
-            result[curr] = (result[curr] || 0) + 1;
+        if (curr <= N) {   
+            if(result[curr-1] < lastResetValue) {
+                result[curr-1] = lastResetValue;
+            }
+            result[curr-1] +=1;
+                        
+            if(result[curr-1] > maxCounter) {
+                maxCounter = result[curr-1];
+            }
+        } else {
+            lastResetValue = maxCounter;
         }
     }
 
-    const outcome = [];
-    for (var i = 1; i <= N; i++) {
-        outcome.push(result[i] || 0);
+    for(var i = 0; i < N; i++) {
+        if(result[i] < lastResetValue) {
+            result[i] = lastResetValue;
+        }
     }
-    return outcome;
+
+    return result;
 }
 
 export default maxCounters;
