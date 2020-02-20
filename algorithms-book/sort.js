@@ -51,3 +51,25 @@ export const mergeSort = (array = []) => {
 
   return mergeSortedArrays(mergeSort(firstArray), mergeSort(secondArray));
 };
+
+// Array is almost sorted except 2 elements
+// Sort it efficiently (O(n))
+export const almostSorted = (a = []) => {
+  const n = a.length;
+  if (n <= 1) {
+    return a;
+  }
+  let i = 0;
+  let j = n - 1;
+  while (a[i] <= a[i + 1]) {
+    i += 1;
+  }
+
+  while (a[j - 1] <= a[j]) {
+    j -= 1;
+  }
+  if (a[i] > a[j] && i !== n - 1 && j !== 0) {
+    swap(a, i, j);
+  }
+  return a;
+};
