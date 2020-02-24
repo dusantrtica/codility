@@ -153,4 +153,6 @@ BinaryTree.prototype.sumOnLevel = function (n) {
     return this.root.sumOnLevel(0, n);
 }
 
+
+
 export default BinaryTree;
