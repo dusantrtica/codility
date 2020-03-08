@@ -22,4 +22,33 @@ const genomicRangeBruteForce = (S, P, Q) => {
     return result;
 }
 
-export default genomicRangeBruteForce;
+const genomicRangeV1 = (S, P, Q) => {
+    const genomMapping = { 1: [], 2: [], 3: [], 4: [] };
+    const Snums = [...S].map((char, index) => {
+        switch (char) {
+            case 'A': genomMapping[1].push(index); return 1;
+            case 'C': genomMapping[2].push(index); return 2;
+            case 'G': genomMapping[3].push(index); return 3;
+            case 'T': genomMapping[4].push(index); return 4;
+            default: throw new Error('Unsupported character');
+        }
+    });
+
+    const result = P.map((p, index) => {
+        const q = Q[index];
+        if (genomMapping[1].some(val => p <= val && val <= q)) {
+            return 1;
+        }
+        if (genomMapping[2].some(val => p <= val && val <= q)) {
+            return 2;
+        }
+        if (genomMapping[3].some(val => p <= val && val <= q)) {
+            return 3;
+        }
+        return 4;
+    });
+
+    return result;
+}
+
+export default genomicRangeV1;
