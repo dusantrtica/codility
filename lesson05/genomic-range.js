@@ -51,4 +51,56 @@ const genomicRangeV1 = (S, P, Q) => {
     return result;
 }
 
-export default genomicRangeV1;
+const genomicRangeV2 = (S, P, Q) => {
+    const n = S.length;
+    const genomMappings = { 'A': Array(n).fill(-1), 'C': Array(n).fill(-1), 'G': Array(n).fill(-1), 'T': Array(n).fill(-1) };
+    [...S].forEach((char, index) => {
+        if (char === 'A') {
+            genomMappings['A'][index] = index;
+            genomMappings['C'][index] = index > 0 ? genomMappings['C'][index - 1] : -1;
+            genomMappings['G'][index] = index > 0 ? genomMappings['G'][index - 1] : -1;
+            genomMappings['T'][index] = index > 0 ? genomMappings['T'][index - 1] : -1;
+        }
+        if (char === 'C') {
+            genomMappings['C'][index] = index;
+            genomMappings['A'][index] = index > 0 ? genomMappings['A'][index - 1] : -1;
+            genomMappings['G'][index] = index > 0 ? genomMappings['G'][index - 1] : -1;
+            genomMappings['T'][index] = index > 0 ? genomMappings['T'][index - 1] : -1;
+        }
+
+        if (char === 'G') {
+            genomMappings['G'][index] = index;
+            genomMappings['A'][index] = index > 0 ? genomMappings['A'][index - 1] : -1;
+            genomMappings['C'][index] = index > 0 ? genomMappings['C'][index - 1] : -1;
+            genomMappings['T'][index] = index > 0 ? genomMappings['T'][index - 1] : -1;
+        }
+        if (char === 'T') {
+            genomMappings['T'][index] = index;
+            genomMappings['A'][index] = index > 0 ? genomMappings['A'][index - 1] : -1;
+            genomMappings['G'][index] = index > 0 ? genomMappings['G'][index - 1] : -1;
+            genomMappings['C'][index] = index > 0 ? genomMappings['C'][index - 1] : -1;
+        }
+
+    });
+
+    const result = P.map((p, index) => {
+        const q = Q[index];
+
+        if (genomMappings['A'][q] >= p && genomMappings['A'][p] <= q) {
+            return 1
+        }
+        if (genomMappings['C'][q] >= p && genomMappings['C'][p] <= q) {
+            return 2
+        }
+        if (genomMappings['G'][q] >= p && genomMappings['G'][p] <= q) {
+            return 3
+        }
+        if (genomMappings['T'][q] >= p && genomMappings['T'][p] <= q) {
+            return 4
+        }
+    });
+
+    return result;
+}
+
+export default genomicRangeV2;
