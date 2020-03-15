@@ -25,4 +25,12 @@ describe('passingCars', () => {
         }
         expect(passingCars(A)).toBe(-1);
     });
+    it('case 7', () => {
+        const A = Array(100000).fill(0);
+        expect(passingCars(A)).toBe(0);
+    });
+    it('case 8', () => {
+        const A = Array(100000).fill(1);
+        expect(passingCars(A)).toBe(0);
+    })
 })
