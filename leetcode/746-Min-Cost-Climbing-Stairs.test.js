@@ -6,7 +6,7 @@ const _minCostClimbingStairs = (cost, i) => {
     return cost[i];
   }
   return Math.min(
-    cost[i] + _minCostClimbingStairs(cost, i - 1),
+    _minCostClimbingStairs(cost, i - 2) + _minCostClimbingStairs(cost, i - 1),
     cost[i] + _minCostClimbingStairs(cost, i - 2),
   );
 };
@@ -19,21 +19,20 @@ const minCostClimbingStairsDP = (cost) => {
   const memo = Array(n).fill(0);
 
   memo[0] = cost[0];
-  memo[1] = cost[1];
+  memo[1] = cost[1]; // Math.min(cost[0], cost[1]);
 
   for (let i = 2; i < n; i++) {
-    memo[i] = Math.min(memo[i - 1], memo[i - 2]) + (i === n ? 0 : cost[i]);
+    memo[i] = Math.min(memo[i - 2], memo[i - 1]) + cost[i];
   }
 
-  console.log({ memo });
-  return memo[memo.length - 1];
+  return Math.min(memo[n - 1], memo[n - 2]);
 };
 
 const minCostClimbingStairs = minCostClimbingStairsDP;
 
 describe('minCostClimbingStairs', () => {
   it('case 1', () => {
-    expect(minCostClimbingStairs([10, 15, 20])).toBe(25);
+    expect(minCostClimbingStairs([10, 15, 20])).toBe(15);
   });
 
   it('case 2', () => {
@@ -46,5 +45,13 @@ describe('minCostClimbingStairs', () => {
 
   it('case 4', () => {
     expect(minCostClimbingStairs([0, 0, 1, 1])).toBe(1);
+  });
+
+  it('case 5', () => {
+    expect(minCostClimbingStairs([0, 0, 1, 0])).toBe(0);
+  });
+
+  it('case 6', () => {
+    expect(minCostClimbingStairs([0, 1, 0, 0])).toBe(0);
   });
 });
