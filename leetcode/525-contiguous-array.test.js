@@ -1,4 +1,6 @@
-const findMaxLength = (nums) => {};
+const findMaxLength = (A) => {
+  const n = A.length;
+};
 
 describe('findMaxLength', () => {
   it('case 1', () => {
