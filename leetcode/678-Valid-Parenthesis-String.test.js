@@ -1,33 +1,40 @@
 const checkValidString = (s) => {
-  let counter = 0;
-  let asterix = 0;
+  let open = 0;
+  let close = 0;
+  let asterisk = 0;
   const n = s.length;
-
-  if (s[0] === ')' || s[n - 1] === '(') {
-    return false;
-  }
 
   for (let i = 0; i < n; i++) {
     const curr = s[i];
     if (curr === '(') {
-      counter += 1;
+      open += 1;
     } else if (curr === ')') {
-      counter -= 1;
+      close += 1;
     } else {
-      asterix += 1;
+      asterisk += 1;
+    }
+    if (open + asterisk < close) {
+      return false;
     }
   }
 
-  if (counter === 0) {
-    return true;
-  }
+  open = 0;
+  asterisk = 0;
+  close = 0;
 
-  if (counter < 0 && counter + asterix < 0) {
-    return false;
-  }
+  for (let i = n - 1; i >= 0; i--) {
+    const curr = s[i];
+    if (curr === ')') {
+      close += 1;
+    } else if (curr === '(') {
+      open += 1;
+    } else {
+      asterisk += 1;
+    }
 
-  if (counter > 0 && counter - asterix > 0) {
-    return false;
+    if (open > close + asterisk) {
+      return false;
+    }
   }
 
   return true;
@@ -62,5 +69,17 @@ describe('checkValidString', () => {
     expect(
       checkValidString('(())((())()()(*)(*()(())())())()()((()())((()))(*'),
     ).toBe(false);
+  });
+
+  it('case 8', () => {
+    expect(checkValidString('(')).toBe(false);
+  });
+
+  it('case 9', () => {
+    expect(checkValidString('*')).toBe(true);
+  });
+
+  it('case 10', () => {
+    expect(checkValidString('')).toBe(true);
   });
 });
