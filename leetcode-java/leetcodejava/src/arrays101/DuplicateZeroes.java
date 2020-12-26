@@ -15,10 +15,7 @@ public class DuplicateZeroes {
         }
 
         int len = array.length;
-        int i = len - 1;
-        int j = len - 1;
-
-        for (i = len - 1, j = len + zeroesCount - 1; i >= 0; i--, j--) {
+        for (int i = len - 1, j = len + zeroesCount - 1; i >= 0; j--, i--) {
             if (array[i] == 0) {
                 if (j < len) {
                     array[j] = array[i];
@@ -33,7 +30,6 @@ public class DuplicateZeroes {
                 }
             }
         }
-
     }
 
     @Test
