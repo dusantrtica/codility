@@ -17,6 +17,18 @@ public class RemoveElement27 {
 
     public int removeElement(int[] nums, int val) {
         int len = nums.length;
+        int i = 0;
+        for (int j = 0; j < len; j++) {
+            if (nums[j] != val) {
+                nums[i] = nums[j];
+                i++;
+            }
+        }
+        return i;
+    }
+
+    public int removeElement_(int[] nums, int val) {
+        int len = nums.length;
         int i = len - 1;
         int j = i;
 
