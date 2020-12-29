@@ -43,10 +43,5 @@ public class FindAllNumbersDisappearedInArray {
             System.out.println(e);
 
         }
-
-        input = {3,2,2, 2};
-        
-
-        result = findDisappearedNumbers(Arrays.)
     }
 }
