@@ -3,8 +3,6 @@ package arrays101;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
-
 public class FindAllNumbersDisappearedInArray {
     static void swap(int[] x, int i, int j) {
         int tmp = x[i];
