@@ -2,23 +2,12 @@ package arrays101;
 
 import static org.junit.Assert.assertArrayEquals;
 
-import java.util.Arrays;
-
 import org.junit.Test;
 
 public class SquaresOfSortedArray {
     public int[] sortedSquares(int[] nums) {
         int len = nums.length;
         int[] result = new int[len];
-        if (nums[0] >= 0) {
-            return Arrays.stream(nums).map(e -> e * e).toArray();
-        }
-
-        if (nums[len - 1] <= 0) {
-            for (int i = len - 1; i >= 0; i--) {
-                result[len - i - 1] = nums[i] * nums[i];
-            }
-        }
 
         int startIndex = 0;
         int absMin = Math.abs(nums[0]);
