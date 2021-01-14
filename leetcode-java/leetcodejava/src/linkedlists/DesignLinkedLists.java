@@ -1,11 +1,15 @@
 package linkedlists;
 
-class Node {
-    public Node next;
-    public int val;
-}
-
 class MyLinkedList {
+    class Node {
+        public Node next;
+        public int val;
+
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
     public Node head;
     private int length;
 
@@ -38,8 +42,7 @@ class MyLinkedList {
      * the insertion, the new node will be the first node of the linked list.
      */
     public void addAtHead(int val) {
-        Node newHead = new Node();
-        newHead.val = val;
+        Node newHead = new Node(val);
         newHead.next = this.head;
         this.head = newHead;
         this.length++;
@@ -47,14 +50,18 @@ class MyLinkedList {
 
     /** Append a node of value val to the last element of the linked list. */
     public void addAtTail(int val) {
-        Node tmp = this.head;
-        while (tmp.next != null) {
-            tmp = tmp.next;
-        }
 
-        tmp.next = new Node();
-        tmp.next.val = val;
-        this.length++;
+        if (this.head == null) {
+            addAtHead(val);
+        } else {
+            Node tmp = this.head;
+            while (tmp.next != null) {
+                tmp = tmp.next;
+            }
+
+            tmp.next = new Node(val);
+            this.length++;
+        }
     }
 
     /**
@@ -77,8 +84,7 @@ class MyLinkedList {
             while (tmp.next != null) {
                 tmp = tmp.next;
             }
-            Node newTail = new Node();
-            newTail.val = val;
+            Node newTail = new Node(val);
             tmp.next = newTail;
         } else {
             Node tmp = this.head;
@@ -86,8 +92,7 @@ class MyLinkedList {
                 tmp = tmp.next;
             }
 
-            Node newNode = new Node();
-            newNode.val = val;
+            Node newNode = new Node(val);
             newNode.next = tmp.next;
             tmp.next = newNode;
         }
@@ -107,22 +112,17 @@ class MyLinkedList {
             Node tmp = this.head;
             for (int i = 0; i < index - 1; i++) {
                 tmp = tmp.next;
-                tmp.next = tmp.next.next;
             }
+            tmp.next = tmp.next.next;
         }
+
+        this.length--;
     }
 }
 
 public class DesignLinkedLists {
 
-    public static void printList(Node head) {
-        while (head != null) {
-            System.out.println(head.val);
-            head = head.next;
-        }
-    }
-
-    public static void main(String[] args) {
+    public static void check1() {
         MyLinkedList obj = new MyLinkedList();
         obj.addAtHead(1); // [1]
         obj.addAtTail(3); // [1, 3]
@@ -130,5 +130,37 @@ public class DesignLinkedLists {
         System.out.println(obj.get(1));
         obj.deleteAtIndex(1);
         System.out.println(obj.get(1));
+    }
+
+    public static void check2() {
+        MyLinkedList obj = new MyLinkedList();
+        obj.addAtTail(1);
+        obj.get(0);
+    }
+
+    public static void check3() {
+        /**
+         * ["MyLinkedList","addAtHead","get","addAtIndex","addAtIndex","deleteAtIndex","addAtHead","addAtHead","deleteAtIndex","addAtIndex","addAtHead","deleteAtIndex"]
+         * [[],[9],[1],[1,1],[1,7],[1],[7],[4],[1],[1,4],[2],[5]]
+         */
+
+        MyLinkedList obj = new MyLinkedList();
+        obj.addAtHead(9);
+        obj.get(1);
+        obj.addAtIndex(1, 1);
+        obj.addAtIndex(1, 7);
+        obj.deleteAtIndex(1);
+
+        obj.addAtHead(7);
+        obj.addAtHead(4);
+        obj.deleteAtIndex(1);
+        obj.addAtIndex(1, 4);
+        obj.addAtHead(2);
+        obj.deleteAtIndex(5);
+
+    }
+
+    public static void main(String[] args) {
+        check3();
     }
 }
