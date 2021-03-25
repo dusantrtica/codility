@@ -11,3 +11,7 @@ M
 src/ReverseWordsInString.java,7/c/7c8037b7630d7b2c20d8844e99b801e0533e5a0c
 G
 src/ArrayPartition.java,c/f/cf5bd27cee38045df89836584eefc8018856be5e
+B
+src/AddBinary.java,6/7/67a6a636e2d5c3bf5bed967eb58a6a39f8b08b4a
+G
+src/PascalTriangle.java,3/c/3c5646fef969fde05fff30b2262c2d215d661c8b
