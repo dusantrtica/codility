@@ -3,29 +3,48 @@ import org.junit.Test;
 
 public class DiagonalTraverse {
     public int[] findDiagonalOrder(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
+        int n = matrix.length;
+        if(n == 0) {
+            return new int [0];
+        }
+        int m = matrix[0].length;
         int[] result = new int[m * n];
+        int col = 0;
+        int row = 0;
         int k = 0;
-        int r = Math.min(m, n);
-        for (int i = 0; i < m + n + 1; i++) {
-            boolean flip = i % 2 == 1;
-            for (int j = 0; j <= Math.min(r, i); j++) {
-                int row = i - j;
-                int col = j;
+        int mn = m * n;
 
-                if (flip) {
-                    row = row < n ? row : n - 1;
-                    col = col < m ? col : m - 1;
-                    result[k] = matrix[col][row];
+        if (m == 0 && n == 0) {
+            return result;
+        }
+
+        boolean upwards = true;
+
+        while (k < mn) {
+            result[k] = matrix[row][col];
+            k++;
+
+            int newCol;
+            int newRow;
+
+            newCol = col + (upwards ? 1 : -1);
+            newRow = row + (upwards ? -1 : 1);
+
+            if (newRow < 0 || newCol < 0 || newRow == n || newCol == m) {
+                if (upwards) {
+                    row = (col == m - 1 ? row + 1 : row);
+                    col = (col < m - 1 ? col + 1 : col);
                 } else {
-                    row = row < m ? row : m - 1;
-                    col = col < n ? col : n - 1;
-                    result[k] = matrix[row][col];
+                    col = (row == n - 1 ? col + 1 : col);
+                    row = (row < n - 1 ? row + 1 : row);
                 }
-                k++;
+                upwards = !upwards;
+            } else {
+                row = newRow;
+                col = newCol;
             }
         }
+
         return result;
     }
 

@@ -91,7 +91,7 @@ class DiagonalTraverseSpec extends Specification {
         def inputMatrix = [[]] as int [][]
 
         when:
-        result = diagonalTraverse.findDiagonalOrder(inputMatrix)
+        def result = diagonalTraverse.findDiagonalOrder(inputMatrix)
 
         then:
         result == []
