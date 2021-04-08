@@ -35,7 +35,7 @@ public class MergeSort {
     }
 
     for (int i = mid; i < n; i++) {
-      r[i-mid] = nums[i];
+      r[i - mid] = nums[i];
     }
 
     sort(l, mid);
