@@ -4,21 +4,19 @@ import org.junit.Test;
 public class Stock121 {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        if (n == 1) {
+        if (n <= 1) {
             return 0;
         }
 
         int maxProfit = 0;
 
-        int[] mins = new int[n];
-        mins[0] = prices[0];
-        for (int i = 1; i < n; i++) {
-            mins[i] =  mins[i-1] < prices[i] ? mins[i-1] : prices[i];
-        }
-
-        for (int i = 0; i < n; i++) {
-            int tmpMaxProfit = prices[i] - mins[i];
-            maxProfit = tmpMaxProfit > maxProfit ? tmpMaxProfit : maxProfit;
+        int minPrice = prices[0];
+        for(int i = 0; i < n; i++) {
+            if(prices[i] < minPrice) {
+                minPrice = prices[i];
+            } else {
+                maxProfit = Math.max(prices[i] - minPrice, maxProfit);
+            }
         }
 
         return maxProfit;
