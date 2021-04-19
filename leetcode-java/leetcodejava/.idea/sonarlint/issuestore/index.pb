@@ -11,3 +11,7 @@ X
 +src/main/java/GlobalLocalInversions775.java,a/a/aafd598fba2f7cb96d00297c6700b8a87e03990a
 X
 (src/main/java/NumberofGoodPairs1512.java,8/c/8c8813ac0c220f7ced76e79e167e4cb5945b9905
+[
++src/main/java/IntersectionOf2Arrays349.java,b/5/b5c9778e84d48daa9048ed05c522d85a2972255c
+Z
+*src/test/groovy/Intersection349Spec.groovy,5/6/56a1693a3e01919cfab9efd1e27f1bc706032bbd
