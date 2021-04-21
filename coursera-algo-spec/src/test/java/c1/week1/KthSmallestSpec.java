@@ -20,4 +20,9 @@ public class KthSmallestSpec {
     public void case3() {
         Assert.assertEquals(3, task.kSmallest(new int []{1,2,3,4,5,6,7,8}, 0, 7, 3));
     }
+
+    @Test
+    public void case4() {
+        Assert.assertEquals(2, task.kSmallest(new int []{3,2,1,5,6,4}, 0, 5, 2));
+    }
 }

@@ -31,9 +31,9 @@ public class KthSmallest {
             return A[pivotIdx-1];
         }
 
-        if(pivotIdx > k) {
+        if(pivotIdx - low > k) {
             return kSmallest(A, low, pivotIdx-1, k);
         }
-        return kSmallest(A, pivotIdx+1, high, k-pivotIdx - 1);
+        return kSmallest(A, pivotIdx+1, high, k-pivotIdx + low -  1);
     }
 }
