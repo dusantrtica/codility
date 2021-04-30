@@ -1,11 +1,46 @@
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.*;
 
 public class FreqSort451 {
-    public String frequencySort(String ss) {
+    public String frequencySort (String s) {
+        if(s == null || s.isEmpty()) {
+            return s;
+        }
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (Character c : s.toCharArray()) {
+            int val = map.getOrDefault(c, 0);
+            map.put(c, val+1);
+        }
+
+        int maxFrequency = Collections.max(map.values());
+        LinkedList<Character>[] list = new LinkedList[maxFrequency+1];
+        for(Map.Entry<Character, Integer> pair : map.entrySet()) {
+            Integer value = pair.getValue();
+            if(list[value] == null) {
+                list[value] = new LinkedList<>();
+            }
+            list[value].add(pair.getKey());
+        }
+
+        StringBuilder builder = new StringBuilder();
+        for(int i = maxFrequency; i > 0; i--) {
+            if(list[i] == null) {
+                continue;
+            }
+            for(Character c : list[i]) {
+                for(int j = 0; j < i; j++) {
+                    builder.append(c);
+                }
+            }
+        }
+        return builder.toString();
+    }
+
+    public String frequencySort_(String ss) {
         char [] charArray = ss.toCharArray();
         int n = charArray.length;
         Character [] s = new Character[n];
