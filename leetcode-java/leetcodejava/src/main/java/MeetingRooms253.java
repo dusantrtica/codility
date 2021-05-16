@@ -1,31 +1,26 @@
 import java.util.Arrays;
+import java.util.PriorityQueue;
+
 import org.junit.Assert;
 import org.junit.Test;
 
 public class MeetingRooms253 {
-
-  boolean isIntervalOverlap(int[] a, int[] b) {
-    if (a == null || b == null) {
-      return false;
-    }
-    return a[0] < b[1] && b[0] < a[1];
-  }
-
   public int minMeetingRooms(int[][] intervals) {
-    int maxOverlappingIntervals = 1;
-    int overlappingIntervals = 1;
-    Arrays.sort(intervals, (o1, o2) -> Integer.compare(o1[1], o2[1]));
-    for (int i = 1; i < intervals.length; i++) {
-      if (isIntervalOverlap(intervals[i - 1], intervals[i])) {
-        overlappingIntervals++;
-      } else {
-        if (maxOverlappingIntervals < overlappingIntervals) {
-          maxOverlappingIntervals = overlappingIntervals;
-        }
-        overlappingIntervals = 1;
-      }
+    if(intervals.length == 0) {
+      return 0;
     }
-    return overlappingIntervals > maxOverlappingIntervals ? overlappingIntervals : maxOverlappingIntervals;
+    PriorityQueue<Integer> rooms = new PriorityQueue<>();
+    Arrays.sort(intervals, (o1, o2) -> Integer.compare(o1[0], o2[0]));
+    rooms.add(intervals[0][1]);
+
+    for(int i = 1; i < intervals.length; i++) {
+      if(intervals[i][0] >= rooms.peek()) {
+        rooms.poll();
+      }
+      rooms.add(intervals[i][1]);
+    }
+
+    return rooms.size();
   }
 
   @Test
@@ -47,4 +42,10 @@ public class MeetingRooms253 {
   public void case4() {
     Assert.assertEquals(2, minMeetingRooms(new int [][]{{2, 11}, {6, 16}, {11, 16}}));
   }
+
+  @Test
+  public void case5() { Assert.assertEquals(1, minMeetingRooms(new int [][]{{2,7}}));}
+
+  @Test
+  public void case6() { Assert.assertEquals(2, minMeetingRooms(new int[][]{{5, 8}, {6, 8}}));}
 }
