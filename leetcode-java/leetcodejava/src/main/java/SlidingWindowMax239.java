@@ -1,26 +1,26 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.PriorityQueue;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class SlidingWindowMax239 {
-
-  int maxSubArray (int [] arr, int low, int high) {
-    int max = arr[low];
-    for(int i = low+1; i <= high; i++) {
-      if(arr[i] > max) {
-        max = arr[i];
-      }
-    }
-    return max;
-  }
   public int[] maxSlidingWindow(int[] nums, int k) {
+    PriorityQueue<Integer> queue = new PriorityQueue<>((o1, o2) -> Integer.compare(o2, o1));
     int n = nums.length;
     int [] result = new int [n-k+1];
 
-    for(int i = 0; i + k <= n; i++) {
-      result[i] = maxSubArray(nums, i, i+k-1);
+    for(int i = 0; i < k; i++) {
+      queue.add(nums[i]);
+    }
+
+    result[0] = queue.peek();
+
+    for(int i = 1; i + k <= n; i++) {
+      queue.remove(nums[i-1]);
+      queue.add(nums[i+k-1]);
+      result[i] = queue.peek();
     }
     return result;
   }
