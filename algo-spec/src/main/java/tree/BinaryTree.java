@@ -3,7 +3,9 @@ package tree;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Stack;
 
 class Node {
@@ -61,6 +63,31 @@ public class BinaryTree {
 
     levelOrder(node.left, level + 1, result);
     levelOrder(node.right, level + 1, result);
+  }
+
+  public List<List<Integer>> levelOrderIter() {
+    List<List<Integer>> result = new ArrayList<>();
+    Queue<Node> queue = new LinkedList<>();
+    if(root != null) {
+      queue.add(root);
+    }
+    while(!queue.isEmpty()) {
+      List<Integer> subResult = new LinkedList<>();
+      int size = queue.size();
+      for(int i = 0; i < size; i++) {
+        Node curr = queue.poll();
+        subResult.add(curr.val);
+        if(curr.left != null) {
+          queue.add(curr.left);
+        }
+
+        if(curr.right != null) {
+          queue.add(curr.right);
+        }
+      }
+      result.add(subResult);
+    }
+    return result;
   }
 
   public List<List<Integer>> levelOrder() {
