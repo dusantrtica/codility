@@ -44,6 +44,31 @@ public class BinaryTree {
     }
   }
 
+  private void levelOrder(Node node, int level, List<List<Integer>> result) {
+    if (node == null) {
+      return;
+    }
+
+    List<Integer> arrayLevel;
+    try {
+      arrayLevel = result.get(level);
+    } catch (IndexOutOfBoundsException e) {
+      arrayLevel = new ArrayList<Integer>();
+      result.add(level, arrayLevel);
+    }
+
+    arrayLevel.add(node.val);
+
+    levelOrder(node.left, level + 1, result);
+    levelOrder(node.right, level + 1, result);
+  }
+
+  public List<List<Integer>> levelOrder() {
+    List<List<Integer>> result = new ArrayList<>();
+    levelOrder(root, 0, result);
+    return result;
+  }
+
   public int min() {
     Node node = root;
     while (node.left != null) {
@@ -130,24 +155,16 @@ public class BinaryTree {
 
   public List<Integer> inOrderIterative() {
     Stack<Node> stack = new Stack<Node>();
-    HashMap<Node, Boolean> visited = new HashMap<>();
     List<Integer> result = new ArrayList<>();
-    stack.add(root);
-    while (!stack.isEmpty()) {
-      Node node = stack.peek();
-
-      if (node.left != null && !visited.getOrDefault(node.left, false)) {
-        stack.push(node.left);
-        visited.put(node.left, true);
-      } else {
-        Node parent = stack.pop();
-
-        result.add(parent.val);
-        if (parent.right != null && !visited.getOrDefault(parent.right, false)) {
-          stack.push(parent.right);
-          visited.put(parent, true);
-        }
+    Node curr = root;
+    while (curr != null || !stack.isEmpty()) {
+      while (curr != null) {
+        stack.push(curr);
+        curr = curr.left;
       }
+      curr = stack.pop();
+      result.add(curr.val);
+      curr = curr.right;
     }
 
     return result;
@@ -155,24 +172,94 @@ public class BinaryTree {
 
   public List<Integer> postOrderIterative() {
     Stack<Node> stack = new Stack<>();
+    Stack<Integer> stackedResult = new Stack<>();
     List<Integer> result = new ArrayList<>();
     stack.push(root);
-
     while (!stack.isEmpty()) {
-      Node node = stack.peek();
+      Node node = stack.pop();
+      stackedResult.push(node.val);
       if (node.left != null) {
         stack.push(node.left);
+      }
+      if (node.right != null) {
+        stack.push(node.right);
+      }
+    }
+
+    while (!stackedResult.isEmpty()) {
+      result.add(stackedResult.pop());
+    }
+    return result;
+  }
+
+  public int successor(int k) {
+    Stack<Node> nodesAllTheWayToK = new Stack<>();
+    Node curr = root;
+    while (true) {
+      if (curr == null || curr.val == k) {
+        break;
+      } else if (curr.val < k) {
+        nodesAllTheWayToK.push(curr);
+        curr = curr.right;
       } else {
-        result.add(node.val);
-        if (node.right != null) {
-          stack.push(node.right);
+        nodesAllTheWayToK.push(curr);
+        curr = curr.left;
+      }
+    }
+
+    if (curr.right != null) {
+      curr = curr.right;
+      while (curr.left != null || curr.right != null) {
+        if (curr.left != null) {
+          curr = curr.left;
         } else {
-          result.add(node.val);
-          stack.pop();
-          stack.pop();
+          curr = curr.right;
+        }
+      }
+      return curr.val;
+    } else {
+      while (true) {
+        Node parent = nodesAllTheWayToK.pop();
+        if (parent.val > k) {
+          return parent.val;
         }
       }
     }
-    return result;
+  }
+
+  public int predecessor(int k) {
+    // easy case: if k's left subtree is non empty, then find the biggest element of k's left subtree (rightmost element of it)
+    // else: follow parents from K to the root and find the first  key that is less then K
+    Stack<Node> nodesAllTheWayToK = new Stack<>();
+    Node curr = root;
+    while (true) {
+      if (curr == null || curr.val == k) {
+        break;
+      } else if (curr.val < k) {
+        nodesAllTheWayToK.push(curr);
+        curr = curr.right;
+      } else {
+        nodesAllTheWayToK.push(curr);
+        curr = curr.left;
+      }
+    }
+    if (curr.left != null) {
+      curr = curr.left;
+      while (curr.left != null || curr.right != null) {
+        if (curr.right != null) {
+          curr = curr.right;
+        } else {
+          curr = curr.left;
+        }
+      }
+      return curr.val;
+    } else {
+      while (true) {
+        Node parent = nodesAllTheWayToK.pop();
+        if (parent.val < k) {
+          return parent.val;
+        }
+      }
+    }
   }
 }
