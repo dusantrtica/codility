@@ -75,4 +75,9 @@ public class BinaryTreeSpec {
     Assert.assertEquals(5, tree.successor(3));
     Assert.assertEquals(11, tree.successor(10));
   }
+
+  @Test
+  public void delete() {
+
+  }
 }

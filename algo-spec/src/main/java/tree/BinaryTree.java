@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
+import org.apache.commons.lang.NotImplementedException;
 
 class Node {
 
@@ -36,6 +37,31 @@ public class BinaryTree {
       node.right = insert(val, node.right);
     }
     return node;
+  }
+
+  public void delete(int elem) {
+    /*
+    deletes element
+    if(elem is leaf), simply remove it
+    if(elem has one child) that child becomes new parent
+    if(elem nas 2 children) then, we find elem's predecessor which becomes new parent
+     */
+    throw new NotImplementedException("Not implemented");
+  }
+
+  public int select(int i) {
+    /*
+    (select ith smallest value)
+    Idea:
+    Augment tree with size value. size(x) = # of nodes in subtree rooted at x
+    size(x) = size(y) +size(z) + 1 (y and z are left and right children)
+    a = size(y)
+    if(a == i-1) return x's key
+    if(a >= i) recursively compute ith order stat. rooted at y
+    if(a < i-1) recursively compute (i-a-1)th order rooted at z
+     */
+
+    throw new NotImplementedException("Not implemented");
   }
 
   public void insert(int elem) {
