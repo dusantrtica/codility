@@ -17,9 +17,3 @@ b
 2src/test/groovy/RunningSumOf1dArray1480Spec.groovy,4/5/455f698e40f94b842a1af563bdad037527b0efad
 S
 #src/main/java/MergeIntervals56.java,b/4/b49020d23da4fbe566ef9bc797d81ac18a0c7a9e
-Y
-)src/main/java/binarysearch/GuessGame.java,1/3/13d37fa30b2a3a1969f8d6d39e819a09a7338b0d
-j
-:src/main/java/binarysearch/SearchInRotatedSortedArray.java,6/f/6f65523cea36729647240a79ea4d39c614c68762
-_
-/src/main/java/binarysearch/FirstBadVersion.java,8/a/8a333245e89261fc255a35f78cce976d79f76e47
