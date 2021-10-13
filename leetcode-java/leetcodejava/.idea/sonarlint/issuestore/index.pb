@@ -25,3 +25,5 @@ _
 /src/main/java/binarysearch/FirstBadVersion.java,8/a/8a333245e89261fc255a35f78cce976d79f76e47
 _
 /src/main/java/binarysearch/FindPeakElement.java,0/e/0ec29a3b369e669ec5522eb46dab7a0f3dd8555c
+b
+2src/main/java/binarysearch/MinInRotatedSorted.java,8/3/83a1251a003d9900674d0127b2584d4bf1ecd56a

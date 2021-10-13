@@ -5,25 +5,25 @@ import org.junit.Test;
 
 public class MinInRotatedSorted {
 
-  public int findMin(int[] nums) {
+  public int findMin(int [] nums) {
     int n = nums.length;
     if(n == 1) {
       return nums[0];
     }
-
     int start = 0;
     int end = n-1;
-    while(start < end) {
+    while(start <= end) {
       int mid = (start + end)/2;
       if(nums[mid] > nums[mid+1]) {
         return nums[mid+1];
-      } else if (nums[mid] > nums[end]) {
-        start = mid;
+      } else if(nums[mid] > nums[end]) {
+        start = mid + 1;
       } else {
-        end = mid;
+        end = mid - 1;
       }
     }
-    return nums[end];
+
+    return nums[start];
   }
 
   @Test
