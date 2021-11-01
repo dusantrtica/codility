@@ -1,38 +1,55 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class CourseSchedule207 {
 
-  private HashMap<Integer, List<Integer>> buildGraphOfPrerequsities(int[][] prerequisites) {
-    int n = prerequisites.length;
+  public boolean canFinish(int numCourses, int[][] prerequisites) {
 
-    HashMap<Integer, List<Integer>> graphOfPrerequsities = new HashMap<Integer, List<Integer>>();
-    for (int [] relation : prerequisites) {
-      int baseCourse = relation[1];
-      int nextCourse = relation[0];
-      List<Integer> nextCourses = graphOfPrerequsities.get(baseCourse);
-      if (nextCourses == null) {
-        nextCourses = new ArrayList<>();
+    // course -> list of next courses
+    HashMap<Integer, List<Integer>> courseDict = new HashMap<>();
+
+    // build the graph first
+    for (int[] relation : prerequisites) {
+      // relation[0] depends on relation[1]
+      if (courseDict.containsKey(relation[1])) {
+        courseDict.get(relation[1]).add(relation[0]);
+      } else {
+        List<Integer> nextCourses = new LinkedList<>();
+        nextCourses.add(relation[0]);
+        courseDict.put(relation[1], nextCourses);
       }
-      nextCourses.add(nextCourse);
-      graphOfPrerequsities.put(baseCourse, nextCourses);
     }
 
-    return graphOfPrerequsities;
+    boolean[] checked = new boolean[numCourses];
+    boolean[] path = new boolean[numCourses];
+
+    for (int currCourse = 0; currCourse < numCourses; ++currCourse) {
+      if (this.isCyclic(currCourse, courseDict, checked, path))
+        return false;
+    }
+
+    return true;
   }
 
-  protected boolean isCyclic(
-      Integer currCourse,
-      HashMap<Integer, List<Integer>> courseDict,
-      boolean[] path) {
 
-    if (path[currCourse]) {
+  /*
+   * postorder DFS check that no cycle would be formed starting from currCourse
+   */
+  protected boolean isCyclic(
+      Integer currCourse, HashMap<Integer, List<Integer>> courseDict,
+      boolean[] checked, boolean[] path) {
+
+    // bottom cases
+    if (checked[currCourse])
+      // this node has been checked, no cycle would be formed with this node.
+      return false;
+    if (path[currCourse])
       // come across a previously visited node, i.e. detect the cycle
       return true;
-    }
 
     // no following courses, no loop.
     if (!courseDict.containsKey(currCourse))
@@ -41,57 +58,24 @@ public class CourseSchedule207 {
     // before backtracking, mark the node in the path
     path[currCourse] = true;
 
-    // backtracking
     boolean ret = false;
-    for (Integer nextCourse : courseDict.get(currCourse)) {
-      ret = this.isCyclic(nextCourse, courseDict, path);
+    // postorder DFS, to visit all its children first.
+    for (Integer child : courseDict.get(currCourse)) {
+      ret = this.isCyclic(child, courseDict, checked, path);
       if (ret)
         break;
     }
-    // after backtracking, remove the node from the path
+
+    // after the visits of children, we come back to process the node itself
+    // remove the node from the path
     path[currCourse] = false;
+
+    // Now that we've visited the nodes in the downstream,
+    // we complete the check of this node.
+    checked[currCourse] = true;
     return ret;
   }
 
-
-  private boolean isCourseCyclic(Integer course, HashMap<Integer, List<Integer>> graphOfPrerequsities,
-      boolean [] visited) {
-    if (visited[course]) {
-      return true;
-    }
-
-    List<Integer> nextCourses = graphOfPrerequsities.get(course);
-    if (nextCourses == null) {
-      return false;
-    }
-    visited[course] = true;
-
-    boolean ret = false;
-
-    for (Integer nextCourse : nextCourses) {
-      ret = isCourseCyclic(nextCourse, graphOfPrerequsities, visited);
-      if(ret) {
-        break;
-      }
-    }
-
-    visited[course] = false;
-    return ret;
-  }
-
-
-  public boolean canFinish(int numCourses, int[][] prerequisites) {
-
-    HashMap<Integer, List<Integer>> graphOfPrerequsities = buildGraphOfPrerequsities(prerequisites);
-
-    boolean [] visited = new boolean[numCourses];
-    for (int toComplete = 0; toComplete < numCourses; toComplete++) {
-      if (isCourseCyclic(toComplete, graphOfPrerequsities, visited)) {
-        return false;
-      }
-    }
-    return true;
-  }
 
   @Test
   public void case1() {
@@ -115,7 +99,7 @@ public class CourseSchedule207 {
 
   @Test
   public void case5() {
-    Assert.assertEquals(true, canFinish(5, new int[][]{{1, 0}, {3, 2}, {5, 4}}));
+    Assert.assertEquals(true, canFinish(6, new int[][]{{1, 0}, {3, 2}, {5, 4}}));
   }
 
   @Test
