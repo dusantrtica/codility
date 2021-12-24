@@ -23,4 +23,9 @@ public class Node<T extends Comparable<T>> {
     public void setNextNode(Node nextNode) {
         this.nextNode = nextNode;
     }
+
+    @Override
+    public String toString() {
+        return data.toString();
+    }
 }
